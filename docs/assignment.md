@@ -18,16 +18,18 @@
 
 ## 需要修改的目录与文件
 
+需要修改的部分都以 `TODO` 注释标记，主要涉及以下文件：
+
 - 主要功能包：[`basic_topic`](../basic_ws/src/basic_topic)
-  - 发布节点：[`publisher_component.cpp`](../basic_ws/src/basic_topic/publisher_component.cpp)、[`publisher_component.hpp`](../basic_ws/src/basic_topic/include/basic_topic/publisher_component.hpp)
-  - 订阅节点：[`subscriber_component.cpp`](../basic_ws/src/basic_topic/subscriber_component.cpp)、[`subscriber_component.hpp`](../basic_ws/src/basic_topic/include/basic_topic/subscriber_component.hpp)
+  - 发布节点：[`publisher_component.cpp`](../basic_ws/src/basic_topic/src/publisher_component.cpp)、[`publisher_component.hpp`](../basic_ws/src/basic_topic/include/basic_topic/publisher_component.hpp)
+  - 订阅节点：[`subscriber_component.cpp`](../basic_ws/src/basic_topic/src/subscriber_component.cpp)、[`subscriber_component.hpp`](../basic_ws/src/basic_topic/include/basic_topic/subscriber_component.hpp)
   - 启动文件：[`basic_topic.launch.py`](../basic_ws/src/basic_topic/launch/basic_topic.launch.py)
   - 编译配置：[`CMakeLists.txt`](../basic_ws/src/basic_topic/CMakeLists.txt)、[`package.xml`](../basic_ws/src/basic_topic/package.xml)
 - Docker 相关文件：[`docker`](../docker)
   - Dev 容器：[`Dockerfile.dev`](../docker/Dockerfile.dev)
   - Deploy 容器：[`Dockerfile.deploy`](../docker/Dockerfile.deploy)、[`docker-compose.deploy.yml`](../docker/docker-compose.deploy.yml)
 
-- 可看需求增加其他文件
+可根据需求增加其他文件
 
 ## 可能用到的指令
 
@@ -72,7 +74,7 @@ docker logs -f <container_name> # 查看容器日志
 
 如果你在完成作业过程中遇到困难，可以逐步完成以下 Checkpoints：
 
-- [ ] 在 Dev 容器中编译 ROS2 包，并且能够在终端看到编译结果
+- [ ] 在 Dev 容器中编译 ROS2 包，并且能够看到编译成功的信息
 - [ ] 在 Dev 容器中分别启动 ROS2 节点，并且能够看到正确的通信信息
 - [ ] 在 Dev 容器中一键启动 ROS2 节点，并且能够看到正确的通信信息
 - [ ] 使用 Deploy 容器一键部署 ROS2 节点，并且能够看到正确的通信信息

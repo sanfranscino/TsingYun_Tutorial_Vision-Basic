@@ -1,3 +1,22 @@
 FROM ros:humble-ros-base
 
-# TODO
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    python3-colcon-common-extensions \
+    ros-humble-rclcpp \
+    ros-humble-rclcpp-components \
+    ros-humble-geometry-msgs \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspaces/code
+
+COPY basic_ws/src ./src
+
+RUN . /opt/ros/humble/setup.sh && \
+    colcon build --symlink-install
+
+RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc && \
+    echo "source /workspaces/code/install/setup.bash" >> /root/.bashrc
+
+CMD ["/bin/bash"]

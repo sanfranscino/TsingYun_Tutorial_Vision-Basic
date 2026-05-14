@@ -6,7 +6,12 @@ namespace basic_topic
     SubscriberComponent::SubscriberComponent(const rclcpp::NodeOptions& options) :
         Node("subscriber_node", options)
     {
-        // TODO
+        subscription_ = this->create_subscription<geometry_msgs::msg::Quaternion>(
+            "quaternion",
+            10,
+            [this](geometry_msgs::msg::Quaternion::SharedPtr msg) {
+                this->quaternion_callback(msg);
+            });
     }
 
     double SubscriberComponent::normalize_angle(double angle)
@@ -34,7 +39,24 @@ namespace basic_topic
         yaw = std::atan2(siny_cosp, cosy_cosp);
     }
 
-    // TODO
+    void SubscriberComponent::quaternion_callback(const geometry_msgs::msg::Quaternion::SharedPtr msg)
+    {
+        double roll = 0.0;
+        double pitch = 0.0;
+        double yaw = 0.0;
+
+        quaternion_to_rpy(*msg, roll, pitch, yaw);
+
+        roll = normalize_angle(roll);
+        pitch = normalize_angle(pitch);
+        yaw = normalize_angle(yaw);
+
+        RCLCPP_INFO(
+            this->get_logger(),
+            "Receive Quaternion: w=%.3f, x=%.3f, y=%.3f, z=%.3f | RPY: roll=%.3f, pitch=%.3f, yaw=%.3f",
+            msg->w, msg->x, msg->y, msg->z,
+            roll, pitch, yaw);
+    }
 
 }  // namespace basic_topic
 
